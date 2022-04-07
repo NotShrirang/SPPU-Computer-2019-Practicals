@@ -8,76 +8,76 @@
 #       Index     |      Value
 #   --------------|------------------
 #         0       |        
-#         1       |
+#         1       | 
 #         2       |
 #         3       |
 #         4       |
 #         5       |
-
-import sqlite3
-from numpy import int64
-
-conn = sqlite3.connect('num_dir.db')
-c = conn.cursor()
-c.execute("""CREATE TABLE if not exists directory (
-        name text,
-        number integer
-        )""")
-c.close()
-conn.commit()
-conn.close()
-
-def hash(name):
-    y = ''
-    for ch in name:
-        ch = bytes(ch, 'utf-8')
-        # print(type(ch)," - ",ch)
-        s = str(ch[0])
-        # print(type(s)," - ",s)
-        y += s
-    # print(y)
-    return y
-def linearProbingWithoutReplacement(name):
-    return(int64(name)+1)
-def search(name):
-    name = hash(name)
-    conn = sqlite3.connect('num_dir.db')
-    c = conn.cursor()
-    c.execute(f"SELECT number FROM directory WHERE name={name}")
-    record = c.fetchall()
-    c.close()
-    conn.commit()
-    conn.close()
-    print(record)
-    if record:
-        print(record[0])
-        return(1)
+import sys
+def hash(num) -> int:
+    return int(num % total_numbers)
+def linearProbingWithoutReplacement(h) -> int:
+    if(h==total_numbers-1):
+        h = 0
+        return(h)
+    else:        
+        return(h+1)
+def search(num) -> bool:
+    if(hashTable[num]!=(None, None)):
+        return True
     else:
-        print("returned 0")
-        return(0)
-def insert(name, num):
-    hname = hash(name)
-    conn = sqlite3.connect('num_dir.db')
-    c = conn.cursor()
-    if(search(name)==0):
-        c.execute("INSERT INTO directory VALUES (:name, :number)",
-                {
-                    'name' : str(hname),
-                    'number' : int(num)
-                })
-        c.close()
+        return False
+def insert(name, num) -> int:
+    hashed_num = hash(num)
+    if(search(hashed_num)): 
+        hashed_num = hash(num)
+        counter = 0
+        while(search(hashed_num)):
+            if(counter==total_numbers-1):
+                print("Hash Table is full!")
+            hashed_num = linearProbingWithoutReplacement(hashed_num)
+            counter += 1
+        hashTable[int(hashed_num)] = (name, num)
+        return 2
     else:
-        print(hname)
-        hname = linearProbingWithoutReplacement(hname)
-        print(hname)
-        c.execute("INSERT INTO directory VALUES (:name, :number)",
-                {
-                    'name' : str(hname),
-                    'number' : int(num)
-                })
-        c.close()
-    conn.commit()
-    conn.close()
+        hashed_num = hash(num)
+        hashTable[int(hashed_num)] = (name, num)
+        return 1
+def displayHashTable():
+    print(f"\nEntries : {total_numbers}")
+    i = 0
+    for bucket in hashTable:
+        print(f"\t{i} : {bucket[0]} - {bucket[1]}")
+        i += 1
 
-insert("Shrirang", 9404797231)
-# search("hello")
+while(True):
+    total_numbers = int(input("Enter total numbers :"))
+    if(total_numbers != 0):
+        break
+
+hashTable = [(None, None)]*total_numbers
+displayHashTable()
+
+while(True):
+    choice = input("Enter Choice :\n1. Insert new number\n2. Display\n3. Exit\n-->")
+    try:
+        match int(choice):
+            case 1 : 
+                name = input("Name : ")
+                while(True):
+                    number = int(input("Num : "))
+                    if(number<=999999999):
+                        print("Invalid Number! Please re-enter!")
+                    else:
+                        break
+                insert(name, number)
+            case 2 : 
+                displayHashTable()
+            case 3: 
+                break
+    except:
+        print("Enter valid choice.")
+    
+# insert("Shrirang", 9404797231)
+# insert("Shrirang", 9404797231)
+# insert("Shrirang", 9404797231)
