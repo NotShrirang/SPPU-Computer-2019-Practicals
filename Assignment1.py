@@ -4,15 +4,6 @@
 # Input : 
 #   N clients
 # For each client : Name & Telephone No.
-# Hash Table:
-#       Index     |      Value
-#   --------------|------------------
-#         0       |        
-#         1       | 
-#         2       |
-#         3       |
-#         4       |
-#         5       |
 import sys
 def hash(num) -> int:
     return int(num % total_numbers)
