@@ -76,7 +76,7 @@ while(True):
             case 2 : 
                 displayHashTable()
             case 3: 
-                break
+                exit()
     except:
         print("Enter valid choice.")
     
