@@ -74,11 +74,6 @@ void display(Node *root) // in order way.
 }
 int minimum(Node *root) // returns minimum element.
 {
-    // int minval = root->data;
-    // if(root==NULL)
-    // {
-    //     return -1;
-    // }
     temp = root;
     while (temp->l != NULL)
     {
