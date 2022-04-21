@@ -4,6 +4,7 @@
 # Input : 
 #   N clients
 # For each client : Name & Telephone No.
+
 def hash(num) -> int:
     return int(num % total_numbers)
 def linearProbingWithoutReplacement(h) -> int:
