@@ -11,9 +11,9 @@ public:
     void read()
     {
         int GMAT[20][20];
-        cout << "enter the number of vertices\n";
+        cout << "Enter the number of vertices : ";
         cin >> vertices;
-        cout << "enter the number of edges\n";
+        cout << "Enter the number of edges : ";
         cin >> edges;
         for (int i = 0; i < vertices; i++)
         {
@@ -22,7 +22,7 @@ public:
                 GMAT[i][j] = 0;
             }
         }
-        cout << "enter the starting ending and weight\n";
+        cout << "Enter the source vertex, destination vertex and weight\n";
         for (int i = 0; i < edges; i++)
         {
             cin >> u >> v >> weight;
@@ -41,6 +41,7 @@ public:
         {
             visited[i] = 0;
         }
+        cout << "\n\nMatrix :\n";
         for (int i = 0; i < vertices - 1; i++)
         {
             int min = 99999;
@@ -58,7 +59,7 @@ public:
             cost = cost + min;
         }
         cout << endl;
-        cout << "minimum cost is " << cost;
+        cout << "Minimum cost :" << cost;
     }
 };
 int main()
