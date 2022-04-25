@@ -129,5 +129,4 @@ int main()
     cout << "\nPost order traversal : ";
     displayPost(head);
     deleteTree(head);
-    cout << "\nhead->data = " << head->left->data;
 }

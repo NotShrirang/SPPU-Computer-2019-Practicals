@@ -108,7 +108,7 @@ int main()
     int num, choice, key;
     while (1)
     {
-        cout << "\nEnter choice : \n1. Insert Node\n2. Display Tree\n3. Search Node\n4. Minimum Node in Tree\n5. Exit.";
+        cout << "\nEnter choice : \n1. Insert Node\n2. Display Tree\n3. Search Node\n4. Minimum Node in Tree\n5. Exit.\n-->";
         cin >> choice;
         switch (choice)
         {

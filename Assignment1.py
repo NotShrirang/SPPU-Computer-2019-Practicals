@@ -56,7 +56,6 @@ while(True):
         break
 
 hashTable = [(None, None)]*total_numbers
-displayHashTable()
 
 while(True):
     choice = input("Enter Choice :\n1. Insert new number\n2. Display\n3. Exit\n-->")
@@ -80,7 +79,3 @@ while(True):
                 exit()
     except:
         print("Enter valid choice.")
-    
-# insert("Shrirang", 9404797231)
-# insert("Shrirang", 9404797231)
-# insert("Shrirang", 9404797231)
