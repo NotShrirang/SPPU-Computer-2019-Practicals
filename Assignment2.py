@@ -1,45 +1,60 @@
-def displayHashTable():
-    print(f"\nEntries : {total_numbers}")
-    i = 0
-    for bucket in hashTable:
-        print(f"\t{i} : {bucket[0]} - {bucket[1]}")
-        i += 1
-def isFull() -> bool:
-    count = 0
-    for bucket in hashTable:
-        if(bucket[0]!=None):
-            count += 1
-    if(count==total_numbers):
-        return True
-    else:
-        return False
+class HashTable:
+    def __init__(self, num) -> None:
+        self.size = int(num)
+        self.dictionary = [[None]]*num
+    def isEmpty(self):
+        for x in self.dictionary:
+            if x[0] == None :
+                pass
+            else:
+                return "List is not empty!"
+        return "List is empty!"
+    def hash(self, key):
+        return key % self.size
+    def insert(self, key, value):
+        key = hash(key)
+        if ((len(self.dictionary[key]) == 1) and (self.dictionary[key][0]==None)) :
+            self.dictionary[key] = [value]
+        else:
+            self.dictionary[key].append(value)
+            pass
+    def display(self):
+        print(self.dictionary)
+    def search(self, value):
+        key
 
-while(True):
-    total_numbers = int(input("Enter total numbers :"))
-    if(total_numbers != 0):
-        break
+if __name__ == '__main__':
+    while(1):
+        try:
+            num = int(input("Enter total number : "))
+        except:
+            print("Enter an integer!")
+            continue
+        if(num<=0):
+            print("Enter non-zero positive number!")
+        elif(num>0):
+            break
+    mydictionary = HashTable(num)
+    while(1):
+        try:
+            choice = int(input("Enter :\n1. Insert\n2. Display\n3. Search\n4. Exit "))
+        except:
+            print("Enter an integer!")
+            continue
+        match choice:
+            case 1 : 
+                key = int(input("Enter key :"))
+                value = input("Enter value :")
+                mydictionary.insert(key=key, value=value)
+            case 2 :
+                mydictionary.display()
+            case 3 :
+                pass
+            case 4 :
+                exit()
 
-hashTable = [[None, [1, 2]]]*total_numbers
-
-while(True):
-    choice = input("Enter Choice :\n1. Insert new number\n2. Display\n3. Exit\n-->")
-    try:
-        match int(choice):
-            case 1 :
-                if(isFull()):
-                    print("Hash Table is full!")
-                else:
-                    name = input("Name : ")
-                    while(True):
-                        number = int(input("Num : "))
-                        if(number<=999999999):
-                            print("Invalid Number! Please re-enter!")
-                        else:
-                            break
-                    # insert(name, number)
-            case 2 : 
-                displayHashTable()
-            case 3: 
-                exit(1)
-    except:
-        print("Enter valid choice.")
+    # mydictionary.display()
+    # mydictionary.insert(1, 1)
+    # mydictionary.display()
+    # mydictionary.insert(1, 2)
+    # mydictionary.display()
