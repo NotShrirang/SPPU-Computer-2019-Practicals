@@ -2,26 +2,33 @@ class HashTable:
     def __init__(self, num) -> None:
         self.size = int(num)
         self.dictionary = [[None]]*num
-    def isEmpty(self):
+    def isEmpty(self) -> str:
         for x in self.dictionary:
             if x[0] == None :
                 pass
             else:
                 return "List is not empty!"
         return "List is empty!"
-    def hash(self, key):
+    def hash(self, key) -> int:
         return key % self.size
-    def insert(self, key, value):
-        key = hash(key)
-        if ((len(self.dictionary[key]) == 1) and (self.dictionary[key][0]==None)) :
-            self.dictionary[key] = [value]
+    def search(self, key, value) -> str:
+        if value in self.dictionary[key]:
+            return True
         else:
-            self.dictionary[key].append(value)
-            pass
-    def display(self):
+            return False
+    def insert(self, key, value) -> bool:
+        key = self.hash(key)
+        if(self.search(key, value)):
+            return False
+        else:
+            if ((len(self.dictionary[key]) == 1) and (self.dictionary[key][0]==None)) :
+                self.dictionary[key] = [value]
+            else:
+                self.dictionary[key].append(value)
+            return True
+    def display(self) -> None:
         print(self.dictionary)
-    def search(self, value):
-        key
+
 
 if __name__ == '__main__':
     while(1):
@@ -37,7 +44,7 @@ if __name__ == '__main__':
     mydictionary = HashTable(num)
     while(1):
         try:
-            choice = int(input("Enter :\n1. Insert\n2. Display\n3. Search\n4. Exit "))
+            choice = int(input("\nEnter :\n1. Insert\n2. Display\n3. Search\n4. Exit\n-->"))
         except:
             print("Enter an integer!")
             continue
@@ -45,16 +52,21 @@ if __name__ == '__main__':
             case 1 : 
                 key = int(input("Enter key :"))
                 value = input("Enter value :")
-                mydictionary.insert(key=key, value=value)
+                state = mydictionary.insert(key=key, value=value)
+                print("Inserted successfully!") if state else print("Element is already present")
             case 2 :
                 mydictionary.display()
             case 3 :
-                pass
+                key = int(input("Enter key : "))
+                value = input("Enter value :")
+                if(mydictionary.search(hash(key), value)):
+                    print("Element is present!")
+                else:
+                    print("Element is not present!")
             case 4 :
+                del mydictionary, key, value
+                print("Object has been deleted!")
+                print("Exiting Program...")
                 exit()
-
-    # mydictionary.display()
-    # mydictionary.insert(1, 1)
-    # mydictionary.display()
-    # mydictionary.insert(1, 2)
-    # mydictionary.display()
+            case _ :
+                print("Enter valid option!")
