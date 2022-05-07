@@ -34,7 +34,7 @@ def insert(name, num) -> int:
         hashed_num = hash(num)
         hashTable[int(hashed_num)] = (name, num)
         return 1
-def displayHashTable():
+def displayHashTable() -> None:
     print(f"\nEntries : {total_numbers}")
     i = 0
     for bucket in hashTable:
