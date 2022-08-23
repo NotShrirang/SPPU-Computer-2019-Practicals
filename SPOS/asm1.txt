@@ -1,0 +1,7 @@
+START 100
+DC b
+DW lvl
+MOVER AREG, "=5"
+MOVER AREG, "=2"
+MOVER AREG, "=1"
+END
