@@ -1,5 +1,5 @@
 KEYWORDS = ["START", "DC", "DW", "END"]
-AD = ["START", "END"]
+AD = ["START", "END", "LTORG"]
 DS = ["DC", "DW"]
 IS = []
 
@@ -26,12 +26,14 @@ class Assembler():
         self.start: bool = False
         self.filepath: str = path
         self.startingAddr: int = 0
+        self.current_address: int = 0
         self.code: list[str] = []
         self.symTab: list[SymbolTableEntry] = []
         self.litTab: list[LiteralTableEntry] = []
         self.poolTab: list[PoolTableEntry] = []
+        self.literal_buffer: list[LiteralTableEntry] = []
         self.end_address: int = -1
-        
+
     def pass1(self) -> None:
         with open(self.filepath, "r") as f:
             self.code = f.read().split("\n")
@@ -43,6 +45,8 @@ class Assembler():
             if cnt == 0 and words[0] != "START":
                 raise(Exception("Program should always start with START keyword."))
             self.parse(words, cnt)
+            self.current_address = int(self.current_address) + 1
+
         for symb in self.symTab:
             print(symb.symbol_name, symb.address)
         
@@ -56,14 +60,31 @@ class Assembler():
             f.write("\nLitTab: \n")
             for cnt, lit in enumerate(self.litTab):
                 f.write(f"{cnt}\t{lit.literal_name}\t{lit.address}\n")
+            f.write("\nPoolTab: \n")
+            for cnt, lit in enumerate(self.poolTab):
+                f.write(f"{cnt}\t#{lit.index}\n")
 
     def parse(self, words: list[str], address: int):
         if words[0] in KEYWORDS:
             if words[0] in AD:
                 if words[0] == "START":
                     self.startingAddr = words[1]
+                    self.current_address = self.startingAddr
                 elif words[0] == "END":
+                    p = PoolTableEntry(index=len(self.litTab))
+                    print(f"end : {len(self.litTab)=}")
+                    self.poolTab.append(p)
+                    self.litTab.extend(self.literal_buffer)
+                    self.literal_buffer = []
                     self.end = True
+                elif word[0] == "LTORG":
+                    for lit in self.literal_buffer:
+                        lit.address = self.current_address
+                    p = PoolTableEntry(index=len(self.litTab))
+                    print(f"ltorg : {len(self.litTab)=}")
+                    self.poolTab.append(p)
+                    self.litTab.extend(self.literal_buffer)
+                    self.literal_buffer = []
                 else:
                     pass
             elif words[0] in DS:
@@ -72,13 +93,17 @@ class Assembler():
             elif words[0] in IS:
                 pass
         for word in words:
-            index = word.find('"=')
+            index = word.find('"=') # if it is literal
             if index != -1:
                 literal = word[index+2 : -1]
                 # print(literal)
                 l = LiteralTableEntry(litName=literal, address=(int(self.startingAddr) + int(address)))
-                self.litTab.append(l)   
+                self.literal_buffer.append(l)
+
+    def pass2(self):
+        pass                
 
 if __name__ == "__main__":
     a = Assembler("asm1.txt")
     a.pass1()
+    a.pass2()
