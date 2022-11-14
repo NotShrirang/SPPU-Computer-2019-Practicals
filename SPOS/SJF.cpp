@@ -30,11 +30,12 @@ int SJF::addProcess(Process process)
 }
 void SJF::schedule()
 {
-    while (proc_vector.size() != 0)
+    while (proc_dictionary.size() != 0)
     {
-        std::pair<int, Process> min_burst_time_pair = *min_element(proc_dictionary.begin(), proc_dictionary.end());
-        done_queue.push(min_burst_time_pair.second);
-        proc_dictionary.erase(min_burst_time_pair.first);
+        auto itr = proc_dictionary.begin();
+        Process min_burst_time_process = itr->second;
+        done_queue.push(min_burst_time_process);
+        proc_dictionary.erase(itr->first);
     }
 }
 void SJF::display()
@@ -42,6 +43,7 @@ void SJF::display()
     while (done_queue.size() != 0)
     {
         std::cout << "Process " << done_queue.front().id << " : Burst Time : " << done_queue.front().burst_time << std::endl;
+        done_queue.pop();
     }
 }
 
@@ -55,5 +57,6 @@ int main()
     sjf_scheduler.addProcess(p4);
     sjf_scheduler.addProcess(p5);
     sjf_scheduler.schedule();
+    sjf_scheduler.display();
     return 0;
 }
