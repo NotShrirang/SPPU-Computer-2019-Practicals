@@ -2,6 +2,7 @@ class Page():
     def __init__(self, page_no: int) -> None:
         self.page_no = page_no
 
+
 class FIFO():
     def __init__(self, pages: list[Page]) -> None:
         self.total_pages = len(pages)
