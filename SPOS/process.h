@@ -8,8 +8,24 @@ public:
     {
         this->id = id;
         this->burst_time = burst_time;
-        this->priority = priority;
         this->arrival_time = arrival_time;
+        if (priority != -1)
+        {
+            if (priority > 0 && priority < 10)
+            {
+                this->priority = priority;
+            }
+            else
+            {
+                std::cout << "ERROR: "
+                          << "while allocating Process " << this->id << "\nPriorityError: Priority should be between 1 and 10." << std::endl;
+                exit(1);
+            }
+        }
+        else
+        {
+            this->priority = priority;
+        }
     };
     ~Process(){};
 };
