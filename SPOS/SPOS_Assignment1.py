@@ -62,7 +62,7 @@ class Assembler():
         for cnt, pool in enumerate(self.poolTab):
             print(f"#{cnt}", pool.index)
         
-        with open("output.txt", "w") as f:
+        with open("output_py.txt", "w") as f:
             f.write("SymTab: \n")
             for cnt, symb in enumerate(self.symTab):
                 f.write(f"{cnt}\t{symb.symbol_name}\t{symb.address}\n")
