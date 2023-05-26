@@ -1,0 +1,21 @@
+{
+  "hello": "Hello! How may I help you?",
+  "hey": "Hey! How may I help you?",
+  "hi": "Hi! How may I help you?",
+  "how are you": "I am fine, thank you! How are you?",
+  "fine": "That's great!",
+  "good": "That's great!",
+  "bad": "I'm sorry to hear that!",
+  "not good": "I'm sorry to hear that!",
+  "not fine": "I'm sorry to hear that!",
+  "what is your name": "My name is GreenBot",
+  "date": "Today is {date}",
+  "time": "It is {time}",
+  "weather": "The weather is {weather}",
+  "temperature": "The temperature is {temperature}",
+  "/play {Song}": "Playing {song}...",
+  "/stop": "Stopping music...",
+  "/pause": "Pausing music...",
+  "/resume": "Resuming music...",
+  "bye": "Bye! Have a nice day!"
+}
