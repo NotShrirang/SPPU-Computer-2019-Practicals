@@ -8,7 +8,7 @@ def solveNQueens(n):
 
     def backtracking(r):
         if r == n:
-            copy = ["".join(row) for row in board]
+            copy = [" ".join(row) for row in board]
             result.append(copy)
             return
 
