@@ -1,9 +1,9 @@
 def nQueens(n):
     res = []
     board = [["." for _ in range(n)] for _ in range(n)]
-    
+
     def isSafe(row, col):
-        for i in range(row):    
+        for i in range(row):
             if (board[i][col] == 'Q'):
                 return False
 
@@ -37,9 +37,10 @@ def nQueens(n):
                     return True
                 board[row][col] = "."
         return False
-    
+
     backtracking(0)
     return res
+
 
 def printSolutions(boards):
     for board in enumerate(boards):
@@ -49,6 +50,7 @@ def printSolutions(boards):
                 print(col, end=' ')
             print()
         print()
+
 
 if __name__ == "__main__":
     N = int(input("Enter no. of queens :"))
